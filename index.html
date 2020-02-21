@@ -1,0 +1,53 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script>
+$(function() {$("#dp1").datepicker();$("#dp1").datepicker("option", "dateFormat", 'yy-mm-dd');});
+$(function() {$("#dp2").datepicker();$("#dp2").datepicker("option", "dateFormat", 'yy-mm-dd');});
+(function(){
+if (!String.prototype.format) {
+	String.prototype.format = function () {
+		var args = arguments;
+		return this.replace(/{(\d+)}/g, function (match, number) {
+			 return typeof args[number] != 'undefined'? args[number]: match;
+		});
+	};
+}
+})();
+$(function () {
+	$("#ml").click( function() {
+		let frm="https://twitter.com/search?q=%20from%3A{0}%20since%3A{1}%20until%3A{2}&f=live";
+		var url=frm.format(_.escape($("#user").val()),_.escape($("#dp1").val()),_.escape($("#dp2").val()));
+		$("#url").val(url);
+	});
+});
+$(function () {
+	$("#ol").click( function() {
+		window.open($("#url").val(), '_blank');
+	});
+});
+$(function () {
+	$("#cl").click( function() {
+		$("#url").select();
+		document.execCommand("copy");
+	});
+});
+</script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css">
+</head>
+<body>
+<table>
+<form>
+<tr><th>ID(@不要)</th><td><input type=text id="user"></td></tr>
+<tr><th>いつから</th><td><input type="text" id="dp1"></td></tr>
+<tr><th>いつまで</th><td><input type="text" id="dp2"></td></tr>
+<tr><td colspan=2><input type=button id="ml" value="リンク作成"></td></tr>
+<tr><td colspan=2><input type=text id="url" size="40"></td></tr>
+<tr><td colspan=2><input type=button id="ol" value="リンクを開く"></td></tr>
+<tr><td colspan=2><input type=button id="cl" value="リンクをクリップボードへコピー"></td></tr>
+</form>
+</body>
+</html>
