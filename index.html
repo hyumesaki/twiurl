@@ -29,7 +29,7 @@ if (!String.prototype.format) {
 })();
 $(function () {
 	$("#ml").click( function() {
-		let frm="https://twitter.com/search?q=%20from%3A{0}%20since%3A{1}%20until%3A{2}&f=live";
+		let frm="https://twitter.com/search?q=%20from%3A{0}%20since%3A{1}%20until%3A{2}&src=typed_query&f=live";
 		var url=frm.format(_.escape($("#user").val()),_.escape($("#dp1").val()),_.escape($("#dp2").val()));
 		$("#url").val(url);
 	});
